@@ -36,6 +36,6 @@ Currency quotation project in Python utilizing APIs.
 
 
 
-#📄 License
+# 📄 License
 
-This project is licensed under the MIT License. For more details, please refer to the LICENSE file.
+This project is licensed under the **MIT License**. You can view the full license [here](https://github.com/username/repository/blob/main/LICENSE).
