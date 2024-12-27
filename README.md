@@ -1,2 +1,2 @@
 # cotacao de moedas
- Projeto simples em python usando apis
+ Projeto de cotação de diferentes moedas em python usando apis
