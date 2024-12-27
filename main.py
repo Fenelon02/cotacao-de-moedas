@@ -1,45 +1,47 @@
 import requests
 
-def cotacao(link):
-
+def currency_quote(link):
     headers = {}
-    dados = {}
+    data = {}
 
-    requisicao = requests.get(link, headers=headers, data=dados)
+    # Fetching data from the API
+    response = requests.get(link, headers=headers, data=data)
 
-    lista = []
-    itens = requisicao.json()
+    quotes_list = []
+    items = response.json()
 
-    for key, value in itens.items():
-        lista.append({
-            'moeda': key,
-            'moeda_de_coversao': value['name'],
-            'preco_atual': float(value['bid'])
+    # Parsing and organizing the response
+    for key, value in items.items():
+        quotes_list.append({
+            'currency': key,
+            'conversion_currency': value['name'],
+            'current_price': float(value['bid'])
         })
 
-        
-    for item in lista:
-        if item['moeda'] == 'USDBRL':
-            item['moeda'] = 'Dólar americano'
-        if item['moeda'] == 'EURBRL':
-            item['moeda'] = 'Euro'
-        if item['moeda'] == 'BTCBRL':
-            item['moeda'] = 'Bitcoin'
+    # Customizing display names for currencies
+    for item in quotes_list:
+        if item['currency'] == 'USDBRL':
+            item['currency'] = 'US Dollar'
+        if item['currency'] == 'EURBRL':
+            item['currency'] = 'Euro'
+        if item['currency'] == 'BTCBRL':
+            item['currency'] = 'Bitcoin'
 
-        if item['moeda_de_coversao'] == 'Dólar Americano/Real Brasileiro':
-            item['moeda_de_coversao'] = 'conversão do Dólar Americano para Real'
-        if item['moeda_de_coversao'] == 'Euro/Real Brasileiro':
-            item['moeda_de_coversao'] = 'conversão de Euro para Real'
-        if item['moeda_de_coversao'] == 'Bitcoin/Real Brasileiro':
-            item['moeda_de_coversao'] = 'conversao de Bitcoin para Real'
+        if item['conversion_currency'] == 'Dólar Americano/Real Brasileiro':
+            item['conversion_currency'] = 'US Dollar to Brazilian Real conversion'
+        if item['conversion_currency'] == 'Euro/Real Brasileiro':
+            item['conversion_currency'] = 'Euro to Brazilian Real conversion'
+        if item['conversion_currency'] == 'Bitcoin/Real Brasileiro':
+            item['conversion_currency'] = 'Bitcoin to Brazilian Real conversion'
 
-    return lista
+    return quotes_list
 
+# API link
+link = "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL"
+currencies = currency_quote(link)
 
-link = " https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL"
-moedas = cotacao(link)
-
-print('COTAÇÃO DAS PRINCIPAIS MOEDAS')
-for item in moedas:
-    print(f'O {item['moeda']} na cotação atual, na {item['moeda_de_coversao']}, está valendo R${item['preco_atual']:.2f}')
+# Printing the results
+print('EXCHANGE RATE OF MAIN CURRENCIES')
+for item in currencies:
+    print(f"The {item['currency']} in the current exchange rate, in the {item['conversion_currency']}, is valued at R${item['current_price']:.2f}")
     print()
