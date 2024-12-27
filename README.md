@@ -38,4 +38,4 @@ Currency quotation project in Python utilizing APIs.
 
 # 📄 License
 
-This project is licensed under the **MIT License**. You can view the full license [here](https://github.com/username/repository/blob/main/LICENSE).
+This project is licensed under the **MIT License**. You can view the full [license](https://github.com/Fenelon02/cotacao-de-moedas/blob/main/LICENSE).
